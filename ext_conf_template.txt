@@ -1,0 +1,2 @@
+  # cat=basic; type=string; label=Fields in a tt_news record to check for changes when editing a news record.
+edited_fields = title,bodytext,subheader,author,author_email,ext_url,links

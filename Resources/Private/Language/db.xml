@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_news.feed">RSS/Atom Feed</label>
+			<label index="tt_news.guid">RSS/Atom Feed GUID</label>
+			<label index="tt_news.edited">RSS/Atom Feed Import Edited Flag</label>
+			<label index="feeds">RSS/Atom Feed Import</label>
+			<label index="feeds.default_author">Author Name (if no author name nor email is found in feed item)</label>
+			<label index="feeds.default_authoremail">Author Email (if Default Author is used)</label>
+			<label index="feeds.default_category">Default news categories for new imported feeds</label>
+			<label index="feeds.default_hidden">Hide newly imported news records</label>
+			<label index="feeds.default_type">Default tt_news-type of new imported feeds</label>
+			<label index="feeds.importimages">Import images from feeds into tt_news records</label>
+			<label index="feeds.overrideedited">Override already edited tt_news records</label>
+			<label index="feeds.scheduler_import.description">Imports RSS/Atom Feeds feeds</label>
+			<label index="feeds.scheduler_import.name">RSS/Atom Feed Import</label>
+			<label index="feeds.targetpid">Target folder to store imported records</label>
+			<label index="feeds.title">Title</label>
+			<label index="feeds.url">Feed URL</label>
+			<label index="scheduler.norecord">No record selected</label>
+			<label index="scheduler.record">Select feed</label>
+			<label index="scheduler.recordselected">Selected feed</label>
+		</languageKey>
+	</data>
+</T3locallang>
