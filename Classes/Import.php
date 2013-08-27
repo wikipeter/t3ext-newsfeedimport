@@ -679,6 +679,9 @@ class Tx_Newsfeedimport_Import {
 	 *
 	 */
 	protected function getXmlCodeForFeedItem($feedItem) {
+		$title = str_replace('😉', '', $feedItem->get_title());
+		$content = str_replace('😉', '', trim($feedItem->get_content()));
+		
 		$xmlString = '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3FlexForms>
 	<data>
@@ -691,7 +694,7 @@ class Tx_Newsfeedimport_Import {
 					<value index="vDEF"></value>
 				</field>
 				<field index="settings.imageTextModuleHeadline">
-					<value index="vDEF"><![CDATA[' . $feedItem->get_title() . ']]></value>
+					<value index="vDEF"><![CDATA[' . $title . ']]></value>
 				</field>
 				<field index="settings.imageTextModuleSubline">
 					<value index="vDEF"></value>
@@ -700,7 +703,7 @@ class Tx_Newsfeedimport_Import {
 					<value index="vDEF">' . $feedItem->get_date("U") . '</value>
 				</field>
 				<field index="settings.imageTextModuleDesc">
-					<value index="vDEF"><![CDATA[' . trim($feedItem->get_content()) . ']]></value>
+					<value index="vDEF"><![CDATA[' . $content . ']]></value>
 					<value index="_TRANSFORM_vDEF.vDEFbase"></value>
 				</field>
 				<field index="settings.imageTextModuleLinktext">
