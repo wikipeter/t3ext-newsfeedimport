@@ -45,6 +45,7 @@ class tx_newsfeedimport_scheduler extends tx_scheduler_Task {
 	 */
 	public function execute() {
 		$row = t3lib_BEfunc::getRecord('tx_newsfeedimport_feeds', $this->feed);
+
 		if (is_array($row)) {
 			$importer = t3lib_div::makeInstance('Tx_Newsfeedimport_Import', $row);
 			return $importer->doImportFeed();

@@ -21,6 +21,9 @@
 			<label index="scheduler.norecord">No record selected</label>
 			<label index="scheduler.record">Select feed</label>
 			<label index="scheduler.recordselected">Selected feed</label>
+			<label index="feeds.default_extension">Which news extension do you use?</label>
+			<label index="feeds.default_extension.I.0">tt_news</label>
+			<label index="feeds.default_extension.I.2">News</label>
 		</languageKey>
 	</data>
 </T3locallang>

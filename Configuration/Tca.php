@@ -131,6 +131,19 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				'default' => 0
 			)
 		),
+		'default_extension' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension.I.0', 0),
+					// array('LLL:EXT:tt_news/locallang_tca.php:tt_news.type.I.1', 1),
+					array('LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension.I.2', 2),
+				),
+				'default' => 0
+			)
+		),
 		'default_categories' => array(
 			'exclude' => 1,
 			// 'l10n_mode' => 'exclude', // the localizalion mode will be handled by the userfunction
@@ -168,7 +181,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'title, startstoptime, url, targetpid, overrideedited, importimages, default_hidden, default_type, default_categories, --palette--;Default Values;defaultvalues, --div--; ,')
+		'0' => array('showitem' => 'title, startstoptime, url, targetpid, overrideedited, importimages, default_hidden, default_type, default_extension, default_categories, --palette--;Default Values;defaultvalues, --div--; ,')
 	),
 	'palettes' => array(
 		'startstoptime' => array(

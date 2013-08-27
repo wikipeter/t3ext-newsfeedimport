@@ -18,6 +18,7 @@ CREATE TABLE tx_newsfeedimport_feeds (
 	importimages tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	default_hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	default_type tinyint(4) DEFAULT '0' NOT NULL,
+	default_extension tinyint(4) DEFAULT '0' NOT NULL,
 	default_categories blob NOT NULL,
 	default_author tinytext NOT NULL,
 	default_authoremail tinytext NOT NULL
@@ -33,5 +34,14 @@ CREATE TABLE tx_newsfeedimport_feeds (
 CREATE TABLE tt_news (
 	tx_newsfeedimport_feed int(11) unsigned DEFAULT '0' NOT NULL,
 	tx_newsfeedimport_guid tinytext NOT NULL,
-	tx_newsfeedimport_edited tinyint(4) DEFAULT '0' NOT NULL,
+	tx_newsfeedimport_edited tinyint(4) DEFAULT '0' NOT NULL
+);
+
+#
+# Table structure for table 'tx_news_domain_model_news'
+#
+CREATE TABLE tx_news_domain_model_news (
+	tx_newsfeedimport_feed int(11) unsigned DEFAULT '0' NOT NULL,
+	tx_newsfeedimport_guid tinytext NOT NULL,
+	tx_newsfeedimport_edited tinyint(4) DEFAULT '0' NOT NULL
 );

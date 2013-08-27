@@ -61,4 +61,37 @@ t3lib_div::loadTCA('tt_news');
 t3lib_extMgm::addTCAcolumns('tt_news', $tempColumns, 1);
 #t3lib_extMgm::addToAllTCAtypes('tt_news','tx_newsfeedimport_uid;;;;1-1-1, tx_newsfeedimport_edited');
 
+$tempColumns = array(
+	'tx_newsfeedimport_feed' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:tt_news.feed',
+		'config' => array(
+			'type' => 'input',
+			'size' => '2',
+			'readOnly' => 1
+		)
+	),
+	'tx_newsfeedimport_guid' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:tt_news.guid',
+		'config' => array(
+			'type' => 'input',
+			'size' => '30',
+			'readOnly' => 1
+		)
+	),
+	'tx_newsfeedimport_edited' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:tt_news.edited',
+		'config' => array(
+			'type' => 'check',
+			'default' => '0',
+			'readOnly' => 1
+		)
+	),
+);
+
+t3lib_div::loadTCA('tx_news_domain_model_news');
+t3lib_extMgm::addTCAcolumns('tx_news_domain_model_news', $tempColumns, 1);
+
 ?>
