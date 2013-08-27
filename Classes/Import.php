@@ -160,8 +160,8 @@ class Tx_Newsfeedimport_Import {
 
 						foreach ($receivers as $receiver) {
 							if ($receiver) {
-								$message = (new \TYPO3\CMS\Core\Mail\MailMessage())
-									->setFrom(array('info@breuningeradministration.de' => 'Breuninger System'))
+								$message = (new \TYPO3\CMS\Core\Mail\MailMessage());
+									$message->setFrom(array('info@breuningeradministration.de' => 'Breuninger System'))
 									->setTo(array($receiver => 'Redakteur'))
 									->setSubject($this->feedImportRecord['notificationmailsubject'])
 									->setBody($this->feedImportRecord['notificationmailtext']);
