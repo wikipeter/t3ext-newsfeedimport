@@ -240,12 +240,15 @@ class Tx_Newsfeedimport_Import {
 			// add the links
 		$linkData = '';
 		$additionalLinks = $feedItem->get_item_tags('http://www.w3.org/2005/Atom', 'link');
-		foreach ($additionalLinks as $lnk) {
-			if ($lnk['attribs']['']['rel'] == 'related') {
-				$linkData .= $lnk['attribs']['']['href'] . ($lnk['attribs']['']['title'] ? ',' . $lnk['attribs']['']['title'] : '') . CRLF;
+
+		if (count($additionalLinks) > 0) {
+			foreach ($additionalLinks as $lnk) {
+				if ($lnk['attribs']['']['rel'] == 'related') {
+					$linkData .= $lnk['attribs']['']['href'] . ($lnk['attribs']['']['title'] ? ',' . $lnk['attribs']['']['title'] : '') . CRLF;
+				}
 			}
 		}
-		
+
 		if ($linkData) {
 			$rec['links'] = trim($linkData);
 		}
@@ -625,9 +628,12 @@ class Tx_Newsfeedimport_Import {
 	protected function retrieveAttachment($feedItem, $dbRecordId) {
 		$attachments = array();
 		$additionalLinks = $feedItem->get_item_tags('http://www.w3.org/2005/Atom', 'link');
-		foreach ($additionalLinks as $lnk) {
-			if ($lnk['attribs']['']['rel'] == 'attachment') {
-				$attachments[] = $lnk['attribs'][''];
+
+		if (count($additionalLinks) > 0) {
+			foreach ($additionalLinks as $lnk) {
+				if ($lnk['attribs']['']['rel'] == 'attachment') {
+					$attachments[] = $lnk['attribs'][''];
+				}
 			}
 		}
 
@@ -681,7 +687,7 @@ class Tx_Newsfeedimport_Import {
 	protected function getXmlCodeForFeedItem($feedItem) {
 		$title = str_replace('😉', '', $feedItem->get_title());
 		$content = str_replace('😉', '', trim($feedItem->get_content()));
-		
+
 		$xmlString = '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3FlexForms>
 	<data>
