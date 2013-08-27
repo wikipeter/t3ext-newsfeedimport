@@ -61,6 +61,8 @@ class Tx_Newsfeedimport_Import {
 
 		$this->feedImportRecord = $feedImportRecord;
 
+		t3lib_div::loadTCA('tt_content');
+
 		if ($this->feedImportRecord['default_extension'] == 0) {
 
 			t3lib_div::loadTCA('tt_news');
@@ -71,15 +73,10 @@ class Tx_Newsfeedimport_Import {
 			t3lib_div::loadTCA('tx_news_domain_model_media');
 		}
 
-		// check if notificationmails need to be sent
-		if ($this->feedImportRecord['emailnotification']) {
-			$sendNotification = TRUE;
-		}
-
 		// load the feed URL
 		require_once('SimplePie/autoloader.php');
 		$this->feedObj = new SimplePie();
-		$this->feedObj->set_feed_url('https://www.facebook.com/feeds/page.php?id=167595049958235&format=rss20');
+		$this->feedObj->set_feed_url($this->feedImportRecord['url']);
 		$this->feedObj->force_feed(TRUE);
 /* 		$this->feedObj->set_cache_duration(3600); */
 		$this->feedObj->set_cache_duration(1);
@@ -106,6 +103,12 @@ class Tx_Newsfeedimport_Import {
 	 * does the magic, called from outside
 	 */
 	public function doImportFeed() {
+
+		// check if notificationmails need to be sent
+		if ($this->feedImportRecord['emailnotification']) {
+			$sendNotification = TRUE;
+		}
+
 		$feedItems = $this->feedObj->get_items();
 
 		if (count($feedItems) > 0) {
@@ -139,7 +142,6 @@ class Tx_Newsfeedimport_Import {
 			$notificationMailSent = FALSE;
 
 			foreach ($feedItems as $feedItem) {
-
 					// deal with categories
 				$categories = $feedItem->get_categories();
 				if (is_array($categories)) {
@@ -176,6 +178,8 @@ class Tx_Newsfeedimport_Import {
 			$GLOBALS['BE_USER']->user['admin'] = $oldAdmin;
 		}
 
+		exit;
+
 		return TRUE;
 	}
 
@@ -194,14 +198,15 @@ class Tx_Newsfeedimport_Import {
 			'type'      => ($this->feedImportRecord['default_type'] ? intval($this->feedImportRecord['default_type']) : '0'),
 			'title'     => trim(htmlspecialchars_decode($feedItem->get_title())),
 			'short'     => trim(htmlspecialchars_decode($feedItem->get_description())),
+			//'bodytext'	=> trim(htmlspecialchars_decode($feedItem->get_content())),
 			'datetime'  => $feedItem->get_date('U'),
-			'bodytext'  => trim(htmlspecialchars_decode($feedItem->get_content())),
 			'author'       => ($feedItem->get_author() ? $feedItem->get_author()->get_name() : ''),
 			'author_email' => ($feedItem->get_author() ? $feedItem->get_author()->get_email() : ''),
 			'tx_newsfeedimport_guid' => $feedItem->get_id(),
 			'tx_newsfeedimport_feed' => $this->feedImportRecord['uid'],
-			'datetime' => strtotime($feedItem->get_date())
+			'content_elements' => 1
 		);
+
 
 			// add more default values
 		if ($isNewRecord && empty($rec['author']) && empty($rec['author_email'])) {
@@ -250,6 +255,7 @@ class Tx_Newsfeedimport_Import {
 			$tce->process_datamap();
 		
 		} else {
+
 				// add a new record
 			$tcemainId = uniqid();
 			$data = array();
@@ -282,6 +288,37 @@ class Tx_Newsfeedimport_Import {
 				// get record ID
 			$newIds = $tce->substNEWwithIDs;
 			$dbRecordId = $newIds['NEW' . $tcemainId];
+
+
+			// special requirement for BREUNINGER as news are content elements
+			// we need to insert a tt_content with all the news data and set the right type (text image)
+			// we need to include all information for the news as an xml to the field pi_flexform
+			// we need to insert mm relation in tx_news_domain_model_news_ttcontent_mm
+			// we need to insert tx_news_domain_model_news with just simple data not the content
+
+			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tt_content', array(
+					'pid'    => $this->feedImportRecord['targetpid'],
+					'CType'  => 'dce_dceuid11',
+					'imagecols' => 2,
+					'colPos'    => 1,
+					'header_layout' => 2,
+					'sectionIndex'  => 1,
+					'tx_dce_dce'    => 11,
+					'backupColPos'  => -2,
+					'pi_flexform'   => $this->getXmlCodeForFeedItem($feedItem)
+				)
+			);
+
+			$ttContentId = $GLOBALS['TYPO3_DB']->sql_insert_id();
+			if ($ttContentId) {
+				$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+					'tx_news_domain_model_news_ttcontent_mm',
+					array(
+						'uid_local' => $dbRecordId,
+						'uid_foreign' => $ttContentId,
+					)
+				);
+			}
 		}
 
 		// connect categories
@@ -337,6 +374,8 @@ class Tx_Newsfeedimport_Import {
 		if ($dbRecordId) {
 			$this->retrieveAttachment($feedItem, $dbRecordId);
 		}
+
+		var_dump($mmData);
 
 		return $dbRecordId;
 	}
@@ -464,27 +503,36 @@ class Tx_Newsfeedimport_Import {
 		// special treatment for facebook rss feeds
 		// we need to crop the link several times to
 		// get the fbid, the id of the image
-		if (empty($additionalLinks)) {
-			$linkToCrop = $feedItem->get_content();
-			$linkToCrop = explode('src', $linkToCrop);
-			$linkToCrop = $linkToCrop[1];
-			$linkToCrop = explode('/', $linkToCrop);
+		if (strpos($feedItem->get_base(), 'facebook')) {
+			if (empty($additionalLinks)) {
+				$linkToCrop = $feedItem->get_content();
+				$linkToCrop = explode('src', $linkToCrop);
+				$linkToCrop = $linkToCrop[1];
+				$linkToCrop = explode('/', $linkToCrop);
 
-			foreach ($linkToCrop as $linkPart) {
-				if (strpos($linkPart, '.jpg') !== FALSE || strpos($linkPart, '.png') !== FALSE || strpos($linkPart, '.gif') !== FALSE) {
-					$linkId = $linkPart;
-					if (strpos($linkId, ' ')) {
-						$linkId = explode(' ', $linkId);
-						$linkId = $linkId[0];
+				foreach ($linkToCrop as $linkPart) {
+					if (strpos($linkPart, '.jpg') !== FALSE || strpos($linkPart, '.png') !== FALSE || strpos($linkPart, '.gif') !== FALSE) {
+						$linkId = $linkPart;
+						if (strpos($linkId, ' ')) {
+							$linkId = explode(' ', $linkId);
+							$linkId = $linkId[0];
+						}
 					}
 				}
+
+				$finalLinkId = str_replace('_s', '_n', $linkId);
+
+				$finalImageLink = 'http://sphotos-c.ak.fbcdn.net/hphotos-ak-ash3/s720x720/' . $finalLinkId ;
+
+				$images[]['href'] = $finalImageLink;
 			}
+		}
 
-			$finalLinkId = str_replace('_s', '_n', $linkId);
-
-			$finalImageLink = 'http://sphotos-c.ak.fbcdn.net/hphotos-ak-ash3/s720x720/' . $finalLinkId ;
-
-			$images[]['href'] = $finalImageLink;
+		if (strpos($feedItem->get_base(), 'youtube')) {
+			if (empty($additionalLinks)) {
+				var_dump($feedItem->get_enclosure());
+				exit;
+			}
 		}
 
 		foreach ($additionalLinks as $lnk) {
@@ -612,6 +660,54 @@ class Tx_Newsfeedimport_Import {
 		$tce->dontProcessTransformations = 1;
 		$tce->start($data, array());
 		$tce->process_datamap();
+	}
+
+	/**
+	 * function to generate an xmlstring for the pi_flexform field in the tt_content table
+	 *
+	 * @param	string	$feedItem	the SimplePie API class
+	 *
+	 */
+	protected function getXmlCodeForFeedItem($feedItem) {
+		$xmlString = '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+		<T3FlexForms>
+			<data>
+				<sheet index="sheet0">
+					<language index="lDEF">
+						<field index="settings.imageTextModuleAlignment">
+							<value index="vDEF">1</value>
+						</field>
+						<field index="settings.imageTextModuleImage">
+							<value index="vDEF">Sansibar_Breuninger3.jpg</value>
+						</field>
+						<field index="settings.imageTextModuleHeadline">
+							<value index="vDEF"><![CDATA[' . trim(htmlspecialchars_decode($feedItem->get_title())) . ']]></value>
+						</field>
+						<field index="settings.imageTextModuleSubline">
+							<value index="vDEF"></value>
+						</field>
+						<field index="settings.imageTextModuleDate">
+							<value index="vDEF">' . $feedItem->get_date("U") . '</value>
+						</field>
+						<field index="settings.imageTextModuleDesc">
+							<value index="vDEF"><![CDATA[' . trim(htmlspecialchars_decode($feedItem->get_content())) . ']]></value>
+							<value index="_TRANSFORM_vDEF.vDEFbase"></value>
+						</field>
+						<field index="settings.imageTextModuleLinktext">
+							<value index="vDEF">' . $feedItem->get_link() . '</value>
+						</field>
+						<field index="settings.imageTextModuleLinktarget">
+							<value index="vDEF">' . $feedItem->get_link() . '</value>
+						</field>
+						<field index="settings.imageTextModuleDetaillayer">
+							<value index="vDEF">0</value>
+						</field>
+					</language>
+				</sheet>
+			</data>
+		</T3FlexForms>';
+
+		return $xmlString;
 	}
 
 }
