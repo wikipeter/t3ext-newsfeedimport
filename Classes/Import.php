@@ -231,12 +231,14 @@ class Tx_Newsfeedimport_Import {
 
 			// if we have the extension news create an a new tx_news_domain_model_link
 			if ($this->feedExtension == 2) {
-				if ($feedItem->get_link()) {
-					$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_link', array('uri' => $feedItem->get_link()));
-					$insertId = $GLOBALS['TYPO3_DB']->sql_insert_id();
-				}
-				if ($insertId > 0) {
-					$rec['related_links'] = $insertId;
+				if ($isNewRecord) {
+					if ($feedItem->get_link()) {
+						$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_link', array('uri' => $feedItem->get_link()));
+						$insertId = $GLOBALS['TYPO3_DB']->sql_insert_id();
+					}
+					if ($insertId > 0) {
+						$rec['related_links'] = $insertId;
+					}
 				}
 			}
 
@@ -304,7 +306,7 @@ class Tx_Newsfeedimport_Import {
 			// download image into the specified upload folder (check for duplicate names)
 			// update the DB record
 		if ($dbRecordId && $this->feedImportRecord['importimages'] == '1') {
-			$this->retrieveImages($feedItem, $dbRecordId);
+			$this->retrieveImages($feedItem, $dbRecordId, $isNewRecord);
 		}
 
 		if ($dbRecordId) {
@@ -427,9 +429,10 @@ class Tx_Newsfeedimport_Import {
 	 *
 	 * @param	string	$feedItem	the SimplePie API class
 	 * @param	integer	$dbRecordId	the ID of the news DB record, so
+	 * @param 	bool $isNewRecord
 	 * @return	void
 	 */
-	protected function retrieveImages($feedItem, $dbRecordId) {
+	protected function retrieveImages($feedItem, $dbRecordId, $isNewRecord) {
 		$images = array();
 		$additionalLinks = $feedItem->get_item_tags('http://www.w3.org/2005/Atom', 'link');
 
@@ -499,18 +502,20 @@ class Tx_Newsfeedimport_Import {
 		}
 		$data = array();
 
-		if ($this->feedExtension == 0) {
-			$data['tt_news'][$dbRecordId]['image'] = implode(',', $newImages);
-			$data['tt_news'][$dbRecordId]['imagetitletext'] = implode(CRLF, $newImageLabels);
-		} elseif ($this->feedExtension == 2) {
-			$insertData = array(
-				'showinpreview' => 1,
-				'image' => $imageBasename,
-				'parent' => $dbRecordId
-			);
+		if ($isNewRecord) {
+			if ($this->feedExtension == 0) {
+				$data['tt_news'][$dbRecordId]['image'] = implode(',', $newImages);
+				$data['tt_news'][$dbRecordId]['imagetitletext'] = implode(CRLF, $newImageLabels);
+			} elseif ($this->feedExtension == 2) {
+				$insertData = array(
+					'showinpreview' => 1,
+					'image' => $imageBasename,
+					'parent' => $dbRecordId
+				);
 
-			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_media',$insertData);
-			$data['tx_news_domain_model_news'][$dbRecordId]['media'] = 1;
+				$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_media',$insertData);
+				$data['tx_news_domain_model_news'][$dbRecordId]['media'] = 1;
+			}
 		}
 
 
