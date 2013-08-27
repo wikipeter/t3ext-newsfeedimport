@@ -1,39 +1,344 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<T3FlexForms>
-	<data>
-		<sheet index="sheet0">
-			<language index="lDEF">
-				<field index="settings.imageTextModuleAlignment">
-					<value index="vDEF">1</value>
-				</field>
-				<field index="settings.imageTextModuleImage">
-					<value index="vDEF"></value>
-				</field>
-				<field index="settings.imageTextModuleHeadline">
-					<value index="vDEF">
-						<![CDATA[Nun ist es endlich offiziell: Am 17. Oktober er&#xf6;ffnen wir unser elftes Haus im K...]]></value>
-				</field>
-				<field index="settings.imageTextModuleSubline">
-					<value index="vDEF"></value>
-				</field>
-				<field index="settings.imageTextModuleDate">
-					<value index="vDEF">1377609960</value>
-				</field>
-				<field index="settings.imageTextModuleDesc">
-					<value index="vDEF">
-						<![CDATA[Nun ist es endlich offiziell: Am 17. Oktober er&ouml;ffnen wir unser elftes Haus im K&ouml;-Bogen in D&uuml;sseldorf! Auf 15.000 Quadratmetern erwartet Euch hier bald eine ganz besondere Mode- und Lifestyle-Welt.<br><br> &Uuml;ber alle Highlights &ndash; vom Red Carpet der gro&szlig;en Er&ouml;ffnungsfeier &uuml;ber neue Trendmarken bis hin zu exklusiven Einblicken hinter die Kulissen - halten wir Euch hier nat&uuml;rlich auf dem Laufenden. Wir freuen uns schon riesig! ;-)<br><br> #breuninger #duesseldorf<br><br><a href="https://www.facebook.com/photo.php?fbid=595638630487206&set=a.171310639586676.56241.167595049958235&type=1&relevant_count=1" title="" target=""><img src="https://fbcdn-photos-c-a.akamaihd.net/hphotos-ak-ash4/1132_595638630487206_386455863_s.jpg" alt=""></a>]]></value>
-					<value index="_TRANSFORM_vDEF.vDEFbase"></value>
-				</field>
-				<field index="settings.imageTextModuleLinktext">
-					<value index="vDEF">https://www.facebook.com/photo.php?fbid=595638630487206&amp;set=a.171310639586676.56241.167595049958235&amp;type=1</value>
-				</field>
-				<field index="settings.imageTextModuleLinktarget">
-					<value index="vDEF">https://www.facebook.com/photo.php?fbid=595638630487206&amp;set=a.171310639586676.56241.167595049958235&amp;type=1</value>
-				</field>
-				<field index="settings.imageTextModuleDetaillayer">
-					<value index="vDEF">0</value>
-				</field>
-			</language>
-		</sheet>
-	</data>
-</T3FlexForms>
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+	<channel>
+		<link>http://ink361.com/breuninger</link>
+		<category>instagram/ink361</category>
+		<language>en-US</language>
+		<generator>INK361</generator>
+		<title>breuninger's photos | INK361 - Web Interface for Instagram</title>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/531579125797915792_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage4.s3.amazonaws.com/dba5cd180eeb11e3a34e22000ae91355_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/531579125797915792_212008234</link>
+			<title>Nie wieder ohne Nieten! ðŸ˜‰ @maisonvalentino #breuninger #flagshipstore #stuttgart #premium
+				#accessoires #valentino #tasche #bag #nieten #details #fashion #lifestyle #trends #hw2013 #schwarz
+				#style
+			</title>
+			<pubDate>Tue, 27 Aug 2013 09:39:51 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/528177607405112993_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage5.s3.amazonaws.com/bf3a27cc0b3b11e3a74422000a1ddb8e_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/528177607405112993_212008234</link>
+			<title>Was kleines zum Mitnehmen? ðŸ˜‰ #breuninger #flagshipstore #stuttgart #premium #accessoires #mulberry
+				#tasche #schultertasche #mini #schwarz #trends #hw2013 #fashion #lifestyle #mode #style
+			</title>
+			<pubDate>Thu, 22 Aug 2013 17:01:39 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526041424940141997_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage9.s3.amazonaws.com/d6559b1008ea11e39da022000aeb0f08_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526041424940141997_212008234</link>
+			<title>Breuni in bester Gesellschaft! @vfbstuttgartoffiziel #breuninger #breuni #flagshipstore #stuttgart
+				#fashion #lifestyle #vfbstuttgart
+			</title>
+			<pubDate>Mon, 19 Aug 2013 18:17:26 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526040458891267479_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage3.s3.amazonaws.com/91b14e8c08ea11e3816b22000a9f17df_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526040458891267479_212008234</link>
+			<title>Bis zum Marktplatz stehen die treuen VfB-Fans fÃ¼r ein Autogramm ihrer Fussball-Idole an!
+				@vfbstuttgartoffiziel #breuninger #autogrammstunde #vfbstuttgart #fussball #bundesliga #flagshipstore
+				#stuttgart
+			</title>
+			<pubDate>Mon, 19 Aug 2013 18:15:31 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526039471166229884_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage8.s3.amazonaws.com/4b82f76c08ea11e391a022000a9f13ef_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526039471166229884_212008234</link>
+			<title>... auch das Fritzle macht die Fans mit Autogrammen glÃ¼cklich! ðŸ˜Š @vfbstuttgartoffiziel
+				#breuninger #vfbstuttgart #vfb #flagshipstore #stuttgart #autogrammstunde
+			</title>
+			<pubDate>Mon, 19 Aug 2013 18:13:33 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526038638605274471_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage11.s3.amazonaws.com/105a705208ea11e3a30c22000a1f9683_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526038638605274471_212008234</link>
+			<title>Die VfB-Spieler geben fleiÃŸig Autogramme... @vfbstuttgartoffiziel #breuninger #vfbstuttgart
+				#autogrammstunde #flagshipstore #stuttgart
+			</title>
+			<pubDate>Mon, 19 Aug 2013 18:11:54 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526036400751152440_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage4.s3.amazonaws.com/7158bd6008e911e380ce22000a9e05dd_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526036400751152440_212008234</link>
+			<title>Die Fans freuen sich auf ihren @vfbstuttgartoffiziel! ðŸ˜‰ #breuninger #vfbstuttgart #autogrammstunde
+				#flagshipstore #stuttgart
+			</title>
+			<pubDate>Mon, 19 Aug 2013 18:07:27 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526033916045462788_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage4.s3.amazonaws.com/c0cc7da608e811e3987d22000aaa0a97_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526033916045462788_212008234</link>
+			<title>Wiedersehen von Fritzle &amp; Breuni! â¤ #breuninger #vfb #autogrammstunde</title>
+			<pubDate>Mon, 19 Aug 2013 18:02:31 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526032721910336756_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage8.s3.amazonaws.com/6bf0a72608e811e3b62722000a1fbc10_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526032721910336756_212008234</link>
+			<title>Cheftrainer Bruno Labbadia gibt den Startschuss fÃ¼r die Autogrammstunde! #breuninger #flagshipstore
+				#stuttgart #vfb
+			</title>
+			<pubDate>Mon, 19 Aug 2013 18:00:08 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/526029950020652222_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage2.s3.amazonaws.com/a6fe1a8408e711e39de722000aa80403_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/526029950020652222_212008234</link>
+			<title>Willkommen VfB Stuttgart! Auf zur Autogrammstunde!!! #breuninger #vfb</title>
+			<pubDate>Mon, 19 Aug 2013 17:54:38 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/525293351544720504_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage0.s3.amazonaws.com/34863602081b11e3b55e22000a9f09fb_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/525293351544720504_212008234</link>
+			<title>SÃ¼ÃŸe HandyhÃ¼llen mit Schleifendetails von @miumiu! #breuninger #flagshipstore #stuttgart #fashion
+				#lifestyle #mode #accessoires #miumiu #handy #leder #huellen #premium
+			</title>
+			<pubDate>Sun, 18 Aug 2013 17:31:08 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/523073978323079076_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage0.s3.amazonaws.com/3492bdce05b311e3880022000ae90e37_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/523073978323079076_212008234</link>
+			<title>SchmuckstÃ¼ck von D&amp;G! @dolcegabbanafashion #breuninger #flagshipstore #stuttgart #fashion #mode
+				#accessoires #bag #tasche #dolcegabbana #dg #trends #hw2013 #neu #neuheiten #premium
+			</title>
+			<pubDate>Thu, 15 Aug 2013 16:01:39 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/522861083446381839_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage3.s3.amazonaws.com/1d7b07e4057811e3b0f022000a9f1369_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/522861083446381839_212008234</link>
+			<title>Habt Ihr schon unsere Men's Contemporary Fashion Abteilung im 2. OG besucht? #pierrebalmain #mcq
+				#alexandermcqueen #hugo #dondup #tigerofsweden #drykorn #kenzo #apc #topshop #paulsmith #closed
+			</title>
+			<pubDate>Thu, 15 Aug 2013 08:58:40 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/522135131909164160_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage8.s3.amazonaws.com/9f8646d804ae11e3bc4e22000aaa05b3_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/522135131909164160_212008234</link>
+			<title>Printmania bei @toryburch! Stylisches KosmetiktÃ¤schchen... findet Ihr auf unserer Premium
+				Accessoires FlÃ¤che im EG! #breuninger #flagshipstore #stuttgart #fashion #lifestyle #accessoires
+				#premium #kosmetik #makeup #beauty #tasche #kosmetiktasche #schminktasche #toryburch
+			</title>
+			<pubDate>Wed, 14 Aug 2013 08:56:19 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/521589716713377056_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage8.s3.amazonaws.com/3d71bb2c041711e392b622000a1fb73b_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/521589716713377056_212008234</link>
+			<title>Bei soviel Auswahl findet hier jeder seinen Style! @neweracaps #breuninger #flagshipstore #stuttgart
+				#newera #subway #caps
+			</title>
+			<pubDate>Tue, 13 Aug 2013 14:52:41 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/521587024825847020_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage4.s3.amazonaws.com/7e2bf8cc041611e3971f22000a1f8c25_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/521587024825847020_212008234</link>
+			<title>Gerade im Subway entdeckt: eine riesige Auswahl an coolen Caps von New Era! Einige Modelle gibt's
+				exklusiv bei uns. Schaut doch mal vorbei! #breuninger #flagshipstore #stuttgart #subway #newera #caps
+				#style #exklusiv @neweracaps
+			</title>
+			<pubDate>Tue, 13 Aug 2013 14:47:20 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/521406858120039438_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage6.s3.amazonaws.com/7c8d702c03e411e38a8922000a1faffc_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/521406858120039438_212008234</link>
+			<title>Neuer Look fÃ¼r's Handy? Die mit Nieten geschmÃ¼ckten HÃ¼llen von @maisonvalentino sind unsere
+				Favoriten! ðŸ˜ #breuninger #flagshipstore #stuttgart #fashion #style #accessoires #trends #hw2013
+				#handy #hÃ¼llen #cases #valentino #nieten
+			</title>
+			<pubDate>Tue, 13 Aug 2013 08:49:22 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/520725894662360435_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage11.s3.amazonaws.com/7b310b98032711e39de722000a9e5e38_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/520725894662360435_212008234</link>
+			<title>Chic fÃ¼r's BÃ¼ro oder Freizeit - oder was meint Ihr, liebe Herren? #breuninger #schuhe
+				#flagshipstore #stuttgart #accessoires #men #contemporary #schnuerer #office #style #trends #hw2013
+			</title>
+			<pubDate>Mon, 12 Aug 2013 10:16:25 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/520724205851020640_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage8.s3.amazonaws.com/0332921a032711e39d7122000a1f97c6_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/520724205851020640_212008234</link>
+			<title>Tiger, Leo, Glitzer, Pink - welcher #tods #loafer darf's heute sein? #breuninger #flagshipstore
+				#stuttgart #schuhe #trends #accessoires #schuhsalon #style #hw2013 #neu #neuheiten
+			</title>
+			<pubDate>Mon, 12 Aug 2013 10:13:04 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/516418635153181889_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage5.s3.amazonaws.com/f9ff81a8fe7b11e2892122000a9f13f9_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/516418635153181889_212008234</link>
+			<title>Die schÃ¶nsten Entdeckungen fÃ¼r die kommende Saison... jetzt auch in unseren Schaufenstern! â¤
+				#breuninger #flagshipstore #stuttgart #fashion #mode #lifestyle #giuseppezanotti #valentino #gucci
+				#jimmychoo #dior #chloÃ© #nicholaskirkwood
+			</title>
+			<pubDate>Tue, 06 Aug 2013 11:38:40 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/515684001129860630_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage2.s3.amazonaws.com/131c4486fdb011e2ba6522000aaa0486_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/515684001129860630_212008234</link>
+			<title>Mit an Bord: die schÃ¶nsten Accessoires fÃ¼r die kommende Saison! #breuninger #flagshipstore
+				#stuttgart #accessoires #schuhe #schuhsalon #valentino #lanvin #jimmychoo #YvesSaintLaurent #ChloÃ©
+				#CÃ©line #MarcJacobs #Burberry #Bally #Etro #JilSander #GiuseppeZanotti #Moreschi #RachelZoe
+				#NicholasKirkwood #SergioRossi
+			</title>
+			<pubDate>Mon, 05 Aug 2013 11:19:05 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/515682783288528397_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage1.s3.amazonaws.com/bc9460f8fdaf11e287db22000aa803d4_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/515682783288528397_212008234</link>
+			<title>Ab nach drauÃŸen! Mit unseren neuen Premium- &amp; Exquisit-Highlights! #breuninger #flagshipstore
+				#stuttgart #fashion #accessoires #premium #mode #trends #hw2013 #autumn #zelten #schaufenster #valentino
+				#studded
+			</title>
+			<pubDate>Mon, 05 Aug 2013 11:16:39 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/515681606853365245_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage1.s3.amazonaws.com/68fdd398fdaf11e2aa5122000aaa0feb_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/515681606853365245_212008234</link>
+			<title>Der Herbst findet Einzug in unsere Schaufenster! #breuninger #flagshipstore #stuttgart #fashion
+				#accessoires #trends #hw2013 #schuhe #sneaker #gucci #jimmychoo #michaelkors #shoes #schaufenster
+			</title>
+			<pubDate>Mon, 05 Aug 2013 11:14:19 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/515610926807945041_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage1.s3.amazonaws.com/cadefdeefd9b11e2895f22000a9e4895_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/515610926807945041_212008234</link>
+			<title>New Collection Arrivals! #miumiu #breuninger #flagshipstore #stuttgart #new #neu #schuhe #schuhsalon
+				#fashion #mode #accessoires #oxfords #trends #hw2013
+			</title>
+			<pubDate>Mon, 05 Aug 2013 08:53:53 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/512391421520678265_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage9.s3.amazonaws.com/3342b208fa1e11e2bb6c22000ae90a36_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/512391421520678265_212008234</link>
+			<title>Neue MÃ¤use von @marcjacobsintl - ganz raffiniert mit Spitzendetails... â¤ #breuninger #marcjacobs
+				#fashion #accessoires #mode #trends #hw2013 #schuhe #mice #ballerina #marcbymarcjacobs #new #neuheiten
+				#neu
+			</title>
+			<pubDate>Wed, 31 Jul 2013 22:17:19 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/509222852700049281_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage9.s3.amazonaws.com/bee7dd60f6ae11e2aa5122000aaa0feb_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/509222852700049281_212008234</link>
+			<title>36 Grad und es wird noch heiÃŸer! Gerade entdeckt: erfrischendes Gesichtsspray 'The Mist' von #lamer
+				- sorgt fÃ¼r AbkÃ¼hlung! Wie erfrischt Ihr Euch bei der Hitze? #sommer #beauty
+			</title>
+			<pubDate>Sat, 27 Jul 2013 13:21:56 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/506466692754476967_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage3.s3.amazonaws.com/c1f46de8f3b111e282a322000a1f9709_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/506466692754476967_212008234</link>
+			<title>Meer davon! #breuninger #shooting #fashion #fotoshooting #makingof #backstage #sylt #behindthescenes
+				#meer #styling #style #strand #urlaub
+			</title>
+			<pubDate>Tue, 23 Jul 2013 18:05:56 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/506461330538139436_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage4.s3.amazonaws.com/44f3e1b2f3b011e28e5d22000a1f979a_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/506461330538139436_212008234</link>
+			<title>#styling #backstage #shooting #makingof</title>
+			<pubDate>Tue, 23 Jul 2013 17:55:17 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/506441414128864709_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage5.s3.amazonaws.com/bdce87aaf3aa11e2b96122000aa802d9_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/506441414128864709_212008234</link>
+			<title>Euch kann man nichts vormachen! Wir shooten natÃ¼rlich auf Sylt fÃ¼r Euch... ðŸ˜‰ #breuninger #sylt
+				#sansibar #shooting #trends #hw2013 #fashion #lifestyle #mode #backstage #makingof
+			</title>
+			<pubDate>Tue, 23 Jul 2013 17:15:42 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/506424023537847381_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage9.s3.amazonaws.com/ea21d9d8f3a511e28bf722000a1f92f7_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/506424023537847381_212008234</link>
+			<title>3 mal dÃ¼rft Ihr raten, wo wir gerade die neuesten HW-Trends fÃ¼r Euch shooten! ðŸŒŠ #breuninger
+				#shooting #makingof #behindthescenes #backstage #fotoshooting #meer #strand #insel
+			</title>
+			<pubDate>Tue, 23 Jul 2013 16:41:09 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/503487051634741189_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage1.s3.amazonaws.com/bdb97b12f07611e2938522000aaa21ef_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/503487051634741189_212008234</link>
+			<title>HW 2013 is arriving... â¤ #breuninger #flagshipstore #stuttgart #fashion #mode #hw2013 #trends
+				#burberrybrit #burberry #leder #lederjacke #bikerjacke #style
+			</title>
+			<pubDate>Fri, 19 Jul 2013 15:25:55 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/502791865149590756_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage8.s3.amazonaws.com/c9c19d8eefb511e2b98822000aaa0338_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/502791865149590756_212008234</link>
+			<title>Exklusiver Kollektionsstart von Thomas Rath Trousers! #breuninger #flagshipstore #stuttgart #fashion
+				#thomasrath #trousers #hosen #style #trends #mode #styling #modenschau
+			</title>
+			<pubDate>Thu, 18 Jul 2013 16:24:42 +0200</pubDate>
+		</item>
+		<item>
+			<author>breuninger</author>
+			<description>&lt;a href="http://ink361.com/#/photo/502782554398690362_212008234" target="_blank"&gt;&lt;img
+				src="http://distilleryimage6.s3.amazonaws.com/342fa4f2efb311e2bb3522000a1fb076_7.jpg"&gt;&lt;/a&gt;</description>
+			<link>http://ink361.com/#/photo/502782554398690362_212008234</link>
+			<title>... and Breuninger â¤ #thomasrath! ðŸ˜‰ #breuninger #flagshipstore #stuttgart #fashion #mode #trends
+				#lifestyle
+			</title>
+			<pubDate>Thu, 18 Jul 2013 16:06:12 +0200</pubDate>
+		</item>
+	</channel>
+</rss>

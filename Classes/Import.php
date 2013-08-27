@@ -520,8 +520,20 @@ class Tx_Newsfeedimport_Import {
 			}
 		}
 
+		// special treatment for youtube images
 		if (strpos($feedItem->get_base(), 'youtube')) {
 			if (empty($additionalLinks)) {
+				$images[]['href'] = $feedItem->get_enclosure()->get_thumbnail();
+			}
+		}
+
+		// special treatment for instagram images
+		if (strpos($feedItem->get_base(), 'ink361')) {
+			if (empty($additionalLinks)) {
+				$linkToCrop = $feedItem->get_description();
+				$linkToCrop = explode('src=', $linkToCrop);
+				$finalImageLink = str_replace(array('"', '</a>', '>'), array('', '', ''), $linkToCrop[1]);
+				$images[]['href'] = $finalImageLink;
 			}
 		}
 
@@ -545,16 +557,22 @@ class Tx_Newsfeedimport_Import {
 
 		$newImages = array();
 		$newImageLabels = array();
+
 		foreach ($images as $imageMetadata) {
 			$imageFile = trim($imageMetadata['href'], '"');
 
 				// Only continue if one of following file extensions match
 			// $type = explode('/', strtolower($type));
 			// if ($type[0] == 'image' && ($type[1] == 'gif' || $type[1] == 'jpeg' || $type[1] == 'png')) {
-
 			// $imageFile = $imageObj->get_src();
 			list($prefix, $imageBasename) = t3lib_div::revExplode('/', $imageFile, 2);
 			$imageBasename = $fileFunc->cleanFileName($imageBasename);
+			// fix for youtube, where all images are called "0.jpg"
+			if ($imageBasename === '0.jpg') {
+				list($prefix, $directoryName) = t3lib_div::revExplode('/', $imageFile, 3);
+				$imageBasename = $directoryName . '_' . $imageBasename;
+				$imageBasename = $fileFunc->cleanFileName($imageBasename);
+			}
 			$finalFilename = $fileFunc->getUniqueName($imageBasename, $destinationPath);
 
 			// fill the file
@@ -565,7 +583,6 @@ class Tx_Newsfeedimport_Import {
 			$newImages[] = basename($finalFilename);
 			$newImageLabels[] = $imageMetadata['title'];
 		}
-		$data = array();
 
 		if ($isNewRecord) {
 			if ($this->feedExtension == 0) {
@@ -575,7 +592,7 @@ class Tx_Newsfeedimport_Import {
 
 				$insertData = array(
 					'showinpreview' => 1,
-					'image' => $imageBasename,
+					'image' => implode(',', $newImages),
 					'parent' => $dbRecordId
 				);
 
