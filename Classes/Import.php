@@ -178,8 +178,6 @@ class Tx_Newsfeedimport_Import {
 			$GLOBALS['BE_USER']->user['admin'] = $oldAdmin;
 		}
 
-		exit;
-
 		return TRUE;
 	}
 
@@ -191,7 +189,7 @@ class Tx_Newsfeedimport_Import {
 			$isNewRecord = FALSE;
 		}
 
-			// insert into DB
+		// insert into DB
 		$rec = array(
 			'pid'       => $this->newsPid,
 			'hidden'    => ($this->feedImportRecord['default_hidden'] ? '1' : '0'),
@@ -204,8 +202,33 @@ class Tx_Newsfeedimport_Import {
 			'author_email' => ($feedItem->get_author() ? $feedItem->get_author()->get_email() : ''),
 			'tx_newsfeedimport_guid' => $feedItem->get_id(),
 			'tx_newsfeedimport_feed' => $this->feedImportRecord['uid'],
-			'content_elements' => 1
 		);
+
+
+		// special requirement for BREUNINGER as news are content elements
+		// we need to insert a tt_content with all the news data and set the right type (text image)
+		// we need to include all information for the news as an xml to the field pi_flexform
+		// we need to insert mm relation in tx_news_domain_model_news_ttcontent_mm
+		// we need to insert tx_news_domain_model_news with just simple data not the content
+		if ($isNewRecord) {
+			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+				'tt_content',
+				array(
+					'pid'    => $this->feedImportRecord['targetpid'],
+					'CType'  => 'dce_dceuid11',
+					'imagecols' => 2,
+					'colPos'    => 1,
+					'header_layout' => 2,
+					'sectionIndex'  => 1,
+					'tx_dce_dce'    => 11,
+					'backupColPos'  => -2,
+					'list_type'		=> '',
+					'pi_flexform'   => $this->getXmlCodeForFeedItem($feedItem)
+				)
+			);
+			$ttcontentUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
+			$rec['content_elements'] = $ttcontentUid;
+		}
 
 
 			// add more default values
@@ -288,37 +311,6 @@ class Tx_Newsfeedimport_Import {
 				// get record ID
 			$newIds = $tce->substNEWwithIDs;
 			$dbRecordId = $newIds['NEW' . $tcemainId];
-
-
-			// special requirement for BREUNINGER as news are content elements
-			// we need to insert a tt_content with all the news data and set the right type (text image)
-			// we need to include all information for the news as an xml to the field pi_flexform
-			// we need to insert mm relation in tx_news_domain_model_news_ttcontent_mm
-			// we need to insert tx_news_domain_model_news with just simple data not the content
-
-			$GLOBALS['TYPO3_DB']->exec_INSERTquery('tt_content', array(
-					'pid'    => $this->feedImportRecord['targetpid'],
-					'CType'  => 'dce_dceuid11',
-					'imagecols' => 2,
-					'colPos'    => 1,
-					'header_layout' => 2,
-					'sectionIndex'  => 1,
-					'tx_dce_dce'    => 11,
-					'backupColPos'  => -2,
-					'pi_flexform'   => $this->getXmlCodeForFeedItem($feedItem)
-				)
-			);
-
-			$ttContentId = $GLOBALS['TYPO3_DB']->sql_insert_id();
-			if ($ttContentId) {
-				$GLOBALS['TYPO3_DB']->exec_INSERTquery(
-					'tx_news_domain_model_news_ttcontent_mm',
-					array(
-						'uid_local' => $dbRecordId,
-						'uid_foreign' => $ttContentId,
-					)
-				);
-			}
 		}
 
 		// connect categories
@@ -374,8 +366,6 @@ class Tx_Newsfeedimport_Import {
 		if ($dbRecordId) {
 			$this->retrieveAttachment($feedItem, $dbRecordId);
 		}
-
-		var_dump($mmData);
 
 		return $dbRecordId;
 	}
@@ -498,7 +488,7 @@ class Tx_Newsfeedimport_Import {
 	 */
 	protected function retrieveImages($feedItem, $dbRecordId, $isNewRecord) {
 		$images = array();
-		$additionalLinks = $feedItem->get_item_tags('http://www.w3.org/2005/Atom', 'link');
+		//$additionalLinks = $feedItem->get_item_tags('http://www.w3.org/2005/Atom', 'link');
 
 		// special treatment for facebook rss feeds
 		// we need to crop the link several times to
@@ -520,24 +510,26 @@ class Tx_Newsfeedimport_Import {
 					}
 				}
 
-				$finalLinkId = str_replace('_s', '_n', $linkId);
+				if (!empty($linkId)) {
+					$finalLinkId = str_replace('_s', '_n', $linkId);
 
-				$finalImageLink = 'http://sphotos-c.ak.fbcdn.net/hphotos-ak-ash3/s720x720/' . $finalLinkId ;
+					$finalImageLink = 'http://sphotos-c.ak.fbcdn.net/hphotos-ak-ash3/s720x720/' . $finalLinkId ;
 
-				$images[]['href'] = $finalImageLink;
+					$images[]['href'] = $finalImageLink;
+				}
 			}
 		}
 
 		if (strpos($feedItem->get_base(), 'youtube')) {
 			if (empty($additionalLinks)) {
-				var_dump($feedItem->get_enclosure());
-				exit;
 			}
 		}
 
-		foreach ($additionalLinks as $lnk) {
-			if ($lnk['attribs']['']['rel'] == 'image') {
-				$images[] = $lnk['attribs'][''];
+		if (count($additionalLinks) > 0) {
+			foreach ($additionalLinks as $lnk) {
+				if ($lnk['attribs']['']['rel'] == 'image') {
+					$images[] = $lnk['attribs'][''];
+				}
 			}
 		}
 
@@ -580,6 +572,7 @@ class Tx_Newsfeedimport_Import {
 				$data['tt_news'][$dbRecordId]['image'] = implode(',', $newImages);
 				$data['tt_news'][$dbRecordId]['imagetitletext'] = implode(CRLF, $newImageLabels);
 			} elseif ($this->feedExtension == 2) {
+
 				$insertData = array(
 					'showinpreview' => 1,
 					'image' => $imageBasename,
@@ -670,43 +663,42 @@ class Tx_Newsfeedimport_Import {
 	 */
 	protected function getXmlCodeForFeedItem($feedItem) {
 		$xmlString = '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-		<T3FlexForms>
-			<data>
-				<sheet index="sheet0">
-					<language index="lDEF">
-						<field index="settings.imageTextModuleAlignment">
-							<value index="vDEF">1</value>
-						</field>
-						<field index="settings.imageTextModuleImage">
-							<value index="vDEF">Sansibar_Breuninger3.jpg</value>
-						</field>
-						<field index="settings.imageTextModuleHeadline">
-							<value index="vDEF"><![CDATA[' . trim(htmlspecialchars_decode($feedItem->get_title())) . ']]></value>
-						</field>
-						<field index="settings.imageTextModuleSubline">
-							<value index="vDEF"></value>
-						</field>
-						<field index="settings.imageTextModuleDate">
-							<value index="vDEF">' . $feedItem->get_date("U") . '</value>
-						</field>
-						<field index="settings.imageTextModuleDesc">
-							<value index="vDEF"><![CDATA[' . trim(htmlspecialchars_decode($feedItem->get_content())) . ']]></value>
-							<value index="_TRANSFORM_vDEF.vDEFbase"></value>
-						</field>
-						<field index="settings.imageTextModuleLinktext">
-							<value index="vDEF">' . $feedItem->get_link() . '</value>
-						</field>
-						<field index="settings.imageTextModuleLinktarget">
-							<value index="vDEF">' . $feedItem->get_link() . '</value>
-						</field>
-						<field index="settings.imageTextModuleDetaillayer">
-							<value index="vDEF">0</value>
-						</field>
-					</language>
-				</sheet>
-			</data>
-		</T3FlexForms>';
-
+<T3FlexForms>
+	<data>
+		<sheet index="sheet0">
+			<language index="lDEF">
+				<field index="settings.imageTextModuleAlignment">
+					<value index="vDEF">1</value>
+				</field>
+				<field index="settings.imageTextModuleImage">
+					<value index="vDEF"></value>
+				</field>
+				<field index="settings.imageTextModuleHeadline">
+					<value index="vDEF"><![CDATA[' . $feedItem->get_title() . ']]></value>
+				</field>
+				<field index="settings.imageTextModuleSubline">
+					<value index="vDEF"></value>
+				</field>
+				<field index="settings.imageTextModuleDate">
+					<value index="vDEF">' . $feedItem->get_date("U") . '</value>
+				</field>
+				<field index="settings.imageTextModuleDesc">
+					<value index="vDEF"><![CDATA[' . trim($feedItem->get_content()) . ']]></value>
+					<value index="_TRANSFORM_vDEF.vDEFbase"></value>
+				</field>
+				<field index="settings.imageTextModuleLinktext">
+					<value index="vDEF">' . $feedItem->get_link() . '</value>
+				</field>
+				<field index="settings.imageTextModuleLinktarget">
+					<value index="vDEF">' . $feedItem->get_link() . '</value>
+				</field>
+				<field index="settings.imageTextModuleDetaillayer">
+					<value index="vDEF">0</value>
+				</field>
+			</language>
+		</sheet>
+	</data>
+</T3FlexForms>';
 		return $xmlString;
 	}
 
