@@ -179,9 +179,42 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				'size' => '15'
 			)
 		),
+		'emailnotification' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.emailnotification',
+			'config' => array(
+				'type' => 'check',
+				'default' => 0
+			)
+		),
+		'notificationreceivers' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.notificationreceivers',
+			'config' => array(
+				'type' => 'input',
+				'size' => '50'
+			)
+		),
+		'notificationmailsubject' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.notificationmailsubject',
+			'config' => array(
+				'type' => 'input',
+				'size' => '30'
+			)
+		),
+		'notificationmailtext' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.notificationmailtext',
+			'config' => array(
+				'type' => 'text',
+				'cols' => '30',
+				'rows' => '15'
+			)
+		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'title, startstoptime, url, targetpid, overrideedited, importimages, default_hidden, default_type, default_extension, default_categories, --palette--;Default Values;defaultvalues, --div--; ,')
+		'0' => array('showitem' => 'title, startstoptime, url, targetpid, overrideedited, importimages, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext, default_hidden, default_type, default_extension, default_categories, --palette--;Default Values;defaultvalues, --div--; ,')
 	),
 	'palettes' => array(
 		'startstoptime' => array(

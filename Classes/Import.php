@@ -71,6 +71,11 @@ class Tx_Newsfeedimport_Import {
 			t3lib_div::loadTCA('tx_news_domain_model_media');
 		}
 
+		// check if notificationmails need to be sent
+		if ($this->feedImportRecord['emailnotification']) {
+			$sendNotification = TRUE;
+		}
+
 		// load the feed URL
 		require_once('SimplePie/autoloader.php');
 		$this->feedObj = new SimplePie();
@@ -129,7 +134,10 @@ class Tx_Newsfeedimport_Import {
 					)
 				);
 			}
-	
+
+			// set a flag that no notificationmail has been sent by now
+			$notificationMailSent = FALSE;
+
 			foreach ($feedItems as $feedItem) {
 
 					// deal with categories
@@ -144,6 +152,23 @@ class Tx_Newsfeedimport_Import {
 				if (!$this->isItemAlreadyImported($feedItem) || $this->feedImportRecord['overrideedited']) {
 					// If you quote this in, the cronjob will not run through: echo 'Importing ' . $feedItem->get_title() . CRLF;
 					$this->importItem($feedItem);
+
+					if ($sendNotification && !$notificationMailSent) {
+						$receivers = explode(',', $this->feedImportRecord['notificationreceivers']);
+
+						foreach ($receivers as $receiver) {
+							if ($receiver) {
+								$message = (new \TYPO3\CMS\Core\Mail\MailMessage())
+									->setFrom(array('info@breuningeradministration.de' => 'Breuninger System'))
+									->setTo(array($receiver => 'Redakteur'))
+									->setSubject($this->feedImportRecord['notificationmailsubject'])
+									->setBody($this->feedImportRecord['notificationmailtext']);
+								$message->send();
+							}
+						}
+
+						$notificationMailSent = TRUE;
+					}
 				}
 			}
 

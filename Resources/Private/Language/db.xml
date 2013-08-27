@@ -24,6 +24,10 @@
 			<label index="feeds.default_extension">Which news extension do you use?</label>
 			<label index="feeds.default_extension.I.0">tt_news</label>
 			<label index="feeds.default_extension.I.2">News</label>
+			<label index="feeds.emailnotification">Shall notificationmails be sent if new items have been added?</label>
+			<label index="feeds.notificationreceivers">Mail addresses of the persons that should be notified about changes</label>
+			<label index="feeds.notificationmailsubject">Subject of the notification mail</label>
+			<label index="feeds.notificationmailtext">Mailtext of the notification mail</label>
 		</languageKey>
 	</data>
 </T3locallang>

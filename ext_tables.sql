@@ -21,7 +21,11 @@ CREATE TABLE tx_newsfeedimport_feeds (
 	default_extension tinyint(4) DEFAULT '0' NOT NULL,
 	default_categories blob NOT NULL,
 	default_author tinytext NOT NULL,
-	default_authoremail tinytext NOT NULL
+	default_authoremail tinytext NOT NULL,
+	emailnotification tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	notificationreceivers tinytext NOT NULL,
+	notificationmailsubject tinytext NOT NULL,
+	notificationmailtext text NOT NULL
 
 	PRIMARY KEY (uid),
 	KEY parent (pid)
