@@ -47,6 +47,18 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				)
 			)
 		),
+		'default_extension' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension.I.0', 0),
+					array('LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension.I.2', 2),
+				),
+				'default' => 0
+			)
+		),
 		'title' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.title',
@@ -131,20 +143,9 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				'default' => 0
 			)
 		),
-		'default_extension' => array(
-			'exclude' => 1,
-			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension.I.0', 0),
-					// array('LLL:EXT:tt_news/locallang_tca.php:tt_news.type.I.1', 1),
-					array('LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_extension.I.2', 2),
-				),
-				'default' => 0
-			)
-		),
-		'default_categories' => array(
+
+		'default_ttnewscategories' => array(
+			'displayCond' => 'FIELD:default_extension:=:0',
 			'exclude' => 1,
 			// 'l10n_mode' => 'exclude', // the localizalion mode will be handled by the userfunction
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_category',
@@ -161,6 +162,29 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				'minitems' => 0,
 				'maxitems' => 500,
 				// 'MM' => 'tt_news_cat_mm',
+			)
+		),
+		'default_newscategories' => array(
+			'displayCond' => 'FIELD:default_extension:=:2',
+			'exclude' => 1,
+			// 'l10n_mode' => 'exclude', // the localizalion mode will be handled by the userfunction
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_category',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'tx_news_domain_model_category',
+				'renderMode' => 'tree',
+				'treeConfig' => array(
+					'dataProvider' => 'Tx_News_TreeProvider_DatabaseTreeDataProvider',
+					'parentField' => 'parentcategory',
+					'appearance' => array(
+						'showHeader' => TRUE,
+						'allowRecursiveMode' => TRUE,
+					),
+				),
+				'size' => 3,
+				'autoSizeMax' => 25,
+				'minitems' => 0,
+				'maxitems' => 500,
 			)
 		),
 		'default_author' => array(
@@ -214,7 +238,8 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'title, startstoptime, url, targetpid, overrideedited, importimages, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext, default_hidden, default_type, default_extension, default_categories, --palette--;Default Values;defaultvalues, --div--; ,')
+		'0' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_type, default_ttnewscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
+		'2' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_type, default_newscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
 	),
 	'palettes' => array(
 		'startstoptime' => array(

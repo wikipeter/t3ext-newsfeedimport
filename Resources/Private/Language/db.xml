@@ -28,6 +28,7 @@
 			<label index="feeds.notificationreceivers">Mail addresses of the persons that should be notified about changes</label>
 			<label index="feeds.notificationmailsubject">Subject of the notification mail</label>
 			<label index="feeds.notificationmailtext">Mailtext of the notification mail</label>
+			<label index="notification">Email notification</label>
 		</languageKey>
 	</data>
 </T3locallang>

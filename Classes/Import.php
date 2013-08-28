@@ -104,6 +104,8 @@ class Tx_Newsfeedimport_Import {
 	 */
 	public function doImportFeed() {
 
+		$receivers = explode(',', $this->feedImportRecord['notificationreceivers']);
+
 		// check if notificationmails need to be sent
 		if ($this->feedImportRecord['emailnotification']) {
 			$sendNotification = TRUE;
@@ -160,8 +162,9 @@ class Tx_Newsfeedimport_Import {
 
 						foreach ($receivers as $receiver) {
 							if ($receiver) {
-								$message = (new \TYPO3\CMS\Core\Mail\MailMessage());
-									$message->setFrom(array('info@breuningeradministration.de' => 'Breuninger System'))
+
+								$message = t3lib_div::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+								$message->setFrom(array('thomas@b13.de' => 'Breuninger System'))
 									->setTo(array($receiver => 'Redakteur'))
 									->setSubject($this->feedImportRecord['notificationmailsubject'])
 									->setBody($this->feedImportRecord['notificationmailtext']);
@@ -222,8 +225,7 @@ class Tx_Newsfeedimport_Import {
 					'sectionIndex'  => 1,
 					'tx_dce_dce'    => 11,
 					'backupColPos'  => -2,
-					'list_type'		=> '',
-					'pi_flexform'   => $this->getXmlCodeForFeedItem($feedItem)
+					'list_type'		=> ''
 				)
 			);
 			$ttcontentUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
@@ -319,7 +321,7 @@ class Tx_Newsfeedimport_Import {
 		// connect categories
 		$categories = $feedItem->get_categories();
 		$categoryIds = $this->resolveCategoryRecords($categories);
-		
+
 		foreach ($categoryIds as $catId) {
 			$addCategoryRelationship = TRUE;
 			if (!$isNewRecord) {
@@ -363,7 +365,7 @@ class Tx_Newsfeedimport_Import {
 			// download image into the specified upload folder (check for duplicate names)
 			// update the DB record
 		if ($dbRecordId && $this->feedImportRecord['importimages'] == '1') {
-			$this->retrieveImages($feedItem, $dbRecordId, $isNewRecord);
+			$this->retrieveImages($feedItem, $dbRecordId, $isNewRecord, $ttcontentUid);
 		}
 
 		if ($dbRecordId) {
@@ -420,9 +422,16 @@ class Tx_Newsfeedimport_Import {
 	 */
 	protected function resolveCategoryRecords($categories) {
 		$categoryIds = array();
-		if ($this->feedImportRecord['default_categories']) {
-			$categoryIds = t3lib_div::trimExplode(',', $this->feedImportRecord['default_categories'], TRUE);
+		if ($this->feedExtension == 0) {
+			if ($this->feedImportRecord['default_ttnewscategories']) {
+				$categoryIds = t3lib_div::trimExplode(',', $this->feedImportRecord['default_ttnewscategories'], TRUE);
+			}
+		} elseif ($this->feedExtension == 2) {
+			if ($this->feedImportRecord['default_newscategories']) {
+				$categoryIds = t3lib_div::trimExplode(',', $this->feedImportRecord['default_newscategories'], TRUE);
+			}
 		}
+
 		if (is_array($categories)) {
 			foreach ($categories as $category) {
 				$name = $category->get_label();
@@ -487,9 +496,10 @@ class Tx_Newsfeedimport_Import {
 	 * @param	string	$feedItem	the SimplePie API class
 	 * @param	integer	$dbRecordId	the ID of the news DB record, so
 	 * @param 	bool $isNewRecord
+	 * @param	integer $ttcontentUid
 	 * @return	void
 	 */
-	protected function retrieveImages($feedItem, $dbRecordId, $isNewRecord) {
+	protected function retrieveImages($feedItem, $dbRecordId, $isNewRecord, $ttcontentUid) {
 		$images = array();
 		//$additionalLinks = $feedItem->get_item_tags('http://www.w3.org/2005/Atom', 'link');
 
@@ -549,9 +559,11 @@ class Tx_Newsfeedimport_Import {
 		}
 
 		if ($this->feedExtension == 0) {
-			$destinationPath = PATH_site . $GLOBALS['TCA']['tt_news']['columns']['image']['config']['uploadfolder'] . '/';
+			//$destinationPath = PATH_site . $GLOBALS['TCA']['tt_news']['columns']['image']['config']['uploadfolder'] . '/';
+			$destinationPath = PATH_site . 'uploads/pics';
 		} elseif ($this->feedExtension == 2) {
-			$destinationPath = PATH_site . $GLOBALS['TCA']['tx_news_domain_model_media']['columns']['image']['config']['uploadfolder'] . '/';
+			//$destinationPath = PATH_site . $GLOBALS['TCA']['tx_news_domain_model_media']['columns']['image']['config']['uploadfolder'] . '/';
+			$destinationPath = PATH_site . 'uploads/pics';
 		}
 
 
@@ -611,6 +623,15 @@ class Tx_Newsfeedimport_Import {
 		$tce->dontProcessTransformations = 1;
 		$tce->start($data, array());
 		$tce->process_datamap();
+
+		// do a update for the tt_content to include the pi flexform with the images
+		if (count($newImages) > 0) {
+			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+				'tt_content',
+				'uid = "' . $ttcontentUid . '"',
+				array('pi_flexform'   => $this->getXmlCodeForFeedItem($feedItem, $newImages[0]))
+			);
+		}
 	}
 
 
@@ -682,9 +703,10 @@ class Tx_Newsfeedimport_Import {
 	 * function to generate an xmlstring for the pi_flexform field in the tt_content table
 	 *
 	 * @param	string	$feedItem	the SimplePie API class
+	 * @param	string	$newImages
 	 *
 	 */
-	protected function getXmlCodeForFeedItem($feedItem) {
+	protected function getXmlCodeForFeedItem($feedItem, $newImages) {
 		$title = str_replace('😉', '', $feedItem->get_title());
 		$content = str_replace('😉', '', trim($feedItem->get_content()));
 
@@ -697,7 +719,7 @@ class Tx_Newsfeedimport_Import {
 					<value index="vDEF">1</value>
 				</field>
 				<field index="settings.imageTextModuleImage">
-					<value index="vDEF"></value>
+					<value index="vDEF">' . $newImages . '</value>
 				</field>
 				<field index="settings.imageTextModuleHeadline">
 					<value index="vDEF"><![CDATA[' . $title . ']]></value>
@@ -706,7 +728,7 @@ class Tx_Newsfeedimport_Import {
 					<value index="vDEF"></value>
 				</field>
 				<field index="settings.imageTextModuleDate">
-					<value index="vDEF">' . $feedItem->get_date("U") . '</value>
+					<value index="vDEF">' . date("d-m-Y H:i",$feedItem->get_date("U")) . '</value>
 				</field>
 				<field index="settings.imageTextModuleDesc">
 					<value index="vDEF"><![CDATA[' . $content . ']]></value>
