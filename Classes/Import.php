@@ -566,11 +566,11 @@ class Tx_Newsfeedimport_Import {
 		}
 
 		if ($this->feedExtension == 0) {
-			//$destinationPath = PATH_site . $GLOBALS['TCA']['tt_news']['columns']['image']['config']['uploadfolder'] . '/';
-			$destinationPath = PATH_site . 'uploads/pics';
+			$destinationPath = PATH_site . $GLOBALS['TCA']['tt_news']['columns']['image']['config']['uploadfolder'] . '/';
+			//$destinationPath = PATH_site . 'uploads/tt_news';
 		} elseif ($this->feedExtension == 2) {
-			//$destinationPath = PATH_site . $GLOBALS['TCA']['tx_news_domain_model_media']['columns']['image']['config']['uploadfolder'] . '/';
-			$destinationPath = PATH_site . 'uploads/pics';
+			$destinationPath = PATH_site . $GLOBALS['TCA']['tx_news_domain_model_media']['columns']['image']['config']['uploadfolder'] . '/';
+			//$destinationPath = PATH_site . 'uploads/tx_news';
 		}
 
 
