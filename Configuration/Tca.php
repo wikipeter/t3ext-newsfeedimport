@@ -130,9 +130,9 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				'default' => '0'
 			)
 		),
-		'default_type' => array(
+		'default_ttnewstype' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_type',
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_ttnewstype',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
@@ -143,6 +143,20 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				'default' => 0
 			)
 		),
+
+		'default_newstype' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_newstype',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('LLL:EXT:news/Resources/Private/Language/locallang_db.xml:tx_news_domain_model_news.type.I.0', 0),
+					array('LLL:EXT:news/Resources/Private/Language/locallang_db.xml:tx_news_domain_model_news.type.I.2', 2),
+				),
+				'default' => 0
+			)
+		),
+
 
 		'default_ttnewscategories' => array(
 			'displayCond' => 'FIELD:default_extension:=:0',
@@ -238,8 +252,8 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_type, default_ttnewscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
-		'2' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_type, default_newscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
+		'0' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_ttnewstype, default_ttnewscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
+		'2' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_newstype, default_newscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
 	),
 	'palettes' => array(
 		'startstoptime' => array(

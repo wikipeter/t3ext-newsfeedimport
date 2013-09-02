@@ -10,7 +10,10 @@
 			<label index="feeds.default_authoremail">Author Email (if Default Author is used)</label>
 			<label index="feeds.default_category">Default news categories for new imported feeds</label>
 			<label index="feeds.default_hidden">Hide newly imported news records</label>
-			<label index="feeds.default_type">Default tt_news-type of new imported feeds</label>
+			<label index="feeds.default_ttnewstype">Default tt_news-type of new imported feeds</label>
+			<label index="feeds.default_newstype">Default news-type of new imported feeds</label>
+			<label index="tt_news.type.I.0">News</label>
+			<label index="tt_news.type.I.2">External Url</label>
 			<label index="feeds.importimages">Import images from feeds into tt_news records</label>
 			<label index="feeds.overrideedited">Override already edited tt_news records</label>
 			<label index="feeds.scheduler_import.description">Imports RSS/Atom Feeds feeds</label>

@@ -196,7 +196,6 @@ class Tx_Newsfeedimport_Import {
 		$rec = array(
 			'pid'       => $this->newsPid,
 			'hidden'    => ($this->feedImportRecord['default_hidden'] ? '1' : '0'),
-			'type'      => ($this->feedImportRecord['default_type'] ? intval($this->feedImportRecord['default_type']) : '0'),
 			'title'     => trim(htmlspecialchars_decode($feedItem->get_title())),
 			'short'     => trim(htmlspecialchars_decode($feedItem->get_description())),
 			//'bodytext'	=> trim(htmlspecialchars_decode($feedItem->get_content())),
@@ -207,6 +206,14 @@ class Tx_Newsfeedimport_Import {
 			'tx_newsfeedimport_feed' => $this->feedImportRecord['uid'],
 		);
 
+		if ($this->feedExtension == 0) {
+			$rec['type'] = ($this->feedImportRecord['default_ttnewstype'] ? intval($this->feedImportRecord['default_ttnewstype']) : '0');
+		} elseif ($this->feedExtension == 2) {
+			$rec['type'] = ($this->feedImportRecord['default_newstype'] ? intval($this->feedImportRecord['default_newstype']) : '0');
+			if ($rec['type'] == 2) {
+				$rec['externalurl'] = $feedItem->get_link();
+			}
+		}
 
 		// special requirement for BREUNINGER as news are content elements
 		// we need to insert a tt_content with all the news data and set the right type (text image)
