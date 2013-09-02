@@ -132,7 +132,7 @@ class Tx_Newsfeedimport_Import {
 			} elseif ($this->feedExtension == 2) {
 				// disable all news items in this storage folder
 				$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-					'tt_news',
+					'tx_news_domain_model_news',
 					'tx_newsfeedimport_guid != "" AND tx_newsfeedimport_feed = ' . intval($this->feedImportRecord['uid']) . ' AND pid = ' . intval($this->newsPid) . t3lib_BEfunc::deleteClause('tx_news_domain_model_news'),
 					array(
 						'hidden' => 1
