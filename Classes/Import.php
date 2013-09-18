@@ -452,11 +452,11 @@ class Tx_Newsfeedimport_Import {
 						'title' => $name
 					);
 
-					if ($this->feedExtension == 0) {
-						$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tt_news_cat', $insertData);
-					} elseif ($this->feedExtension == 2) {
-						$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_category', $insertData);
-					}
+//					if ($this->feedExtension == 0) {
+//						$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tt_news_cat', $insertData);
+//					} elseif ($this->feedExtension == 2) {
+//						$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_category', $insertData);
+//					}
 
 					$categoryId = $GLOBALS['TYPO3_DB']->sql_insert_id();
 				
