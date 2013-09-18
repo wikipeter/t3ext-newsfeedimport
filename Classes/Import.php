@@ -299,7 +299,12 @@ class Tx_Newsfeedimport_Import {
 			if ($this->feedExtension == 2) {
 				if ($isNewRecord) {
 					if ($feedItem->get_link()) {
-						$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_link', array('uri' => $feedItem->get_link()));
+						$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_link', array(
+							'uri' => $feedItem->get_link(),
+							'pid' => $this->newsPid,
+							'crdate' => time(),
+							'tstamp' => time()
+						));
 						$insertId = $GLOBALS['TYPO3_DB']->sql_insert_id();
 					}
 					if ($insertId > 0) {
@@ -615,7 +620,10 @@ class Tx_Newsfeedimport_Import {
 				$insertData = array(
 					'showinpreview' => 1,
 					'image' => implode(',', $newImages),
-					'parent' => $dbRecordId
+					'parent' => $dbRecordId,
+					'pid' => $this->newsPid,
+					'crdate' => time(),
+					'tstamp' => time()
 				);
 
 				$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_news_domain_model_media',$insertData);
