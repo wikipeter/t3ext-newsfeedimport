@@ -164,11 +164,11 @@ class Tx_Newsfeedimport_Import {
 							if ($receiver) {
 
 								$message = t3lib_div::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-								$message->setFrom(array('thomas@b13.de' => 'Breuninger System'))
-									->setTo(array($receiver => 'Redakteur'))
+								$message->setFrom(array('noreply@b13.de' => 'Breuninger Corporate Website'))
+									->setTo(array($receiver => $receiver))
 									->setSubject($this->feedImportRecord['notificationmailsubject'])
 									->setBody($this->feedImportRecord['notificationmailtext']);
-								$message->send();
+								$result = $message->send();
 							}
 						}
 
@@ -196,9 +196,9 @@ class Tx_Newsfeedimport_Import {
 		$rec = array(
 			'pid'       => $this->newsPid,
 			'hidden'    => ($this->feedImportRecord['default_hidden'] ? '1' : '0'),
-			'title'     => trim($this->decodeHtmlCharacters($feedItem->get_title())),
-			'short'     => trim($this->decodeHtmlCharacters($feedItem->get_description())),
-			//'bodytext'	=> trim($this->decodeHtmlCharacters($feedItem->get_content())),
+			'title'     => $this->decodeHtmlCharacters($feedItem->get_title()),
+			'short'     => $this->decodeHtmlCharacters($feedItem->get_description()),
+			//'bodytext'	=> $this->decodeHtmlCharacters($feedItem->get_content()),
 			'datetime'  => $feedItem->get_date('U'),
 			'author'       => ($feedItem->get_author() ? $this->decodeHtmlCharacters($feedItem->get_author()->get_name()) : ''),
 			'author_email' => ($feedItem->get_author() ? $feedItem->get_author()->get_email() : ''),
@@ -220,24 +220,24 @@ class Tx_Newsfeedimport_Import {
 		// we need to include all information for the news as an xml to the field pi_flexform
 		// we need to insert mm relation in tx_news_domain_model_news_ttcontent_mm
 		// we need to insert tx_news_domain_model_news with just simple data not the content
-		if ($isNewRecord) {
-			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
-				'tt_content',
-				array(
-					'pid'    => $this->feedImportRecord['targetpid'],
-					'CType'  => 'dce_dceuid11',
-					'imagecols' => 2,
-					'colPos'    => 1,
-					'header_layout' => 2,
-					'sectionIndex'  => 1,
-					'tx_dce_dce'    => 11,
-					'backupColPos'  => -2,
-					'list_type'		=> ''
-				)
-			);
-			$ttcontentUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
-			$rec['content_elements'] = $ttcontentUid;
-		}
+//		if ($isNewRecord) {
+//			$GLOBALS['TYPO3_DB']->exec_INSERTquery(
+//				'tt_content',
+//				array(
+//					'pid'    => $this->feedImportRecord['targetpid'],
+//					'CType'  => 'dce_dceuid11',
+//					'imagecols' => 2,
+//					'colPos'    => 1,
+//					'header_layout' => 2,
+//					'sectionIndex'  => 1,
+//					'tx_dce_dce'    => 11,
+//					'backupColPos'  => -2,
+//					'list_type'		=> ''
+//				)
+//			);
+//			$ttcontentUid = $GLOBALS['TYPO3_DB']->sql_insert_id();
+//			$rec['content_elements'] = $ttcontentUid;
+//		}
 
 
 			// add more default values
@@ -261,7 +261,6 @@ class Tx_Newsfeedimport_Import {
 		if ($linkData) {
 			$rec['links'] = trim($linkData);
 		}
-
 
 			// use TCEmain to store the record
 		if (!$isNewRecord) {
@@ -640,7 +639,7 @@ class Tx_Newsfeedimport_Import {
 		$tce->process_datamap();
 
 		// do a update for the tt_content to include the pi flexform with the images
-		if (count($newImages) > 0) {
+		if (count($newImages) > 0 && $ttcontentUid > 0) {
 			$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 				'tt_content',
 				'uid = "' . $ttcontentUid . '"',
@@ -770,12 +769,11 @@ class Tx_Newsfeedimport_Import {
 	 * wrapper function for decoding HTML characters to unicode characters (as the DB now supports UTF8 by default)
 	 */
 	protected function decodeHtmlCharacters($str) {
-		return html_entity_decode($str, ENT_COMPAT | ENT_HTML5, 'UTF-8');
+		// make &amp; to & so the entities will be decoded correctly
+		$str = htmlspecialchars_decode($str);
+		$str = trim(html_entity_decode($str, ENT_NOQUOTES | ENT_HTML5, 'UTF-8'));
+		return $str;
 	}
-
 }
 
-if (defined('TYPO3_MODE') && isset($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/newsfeedimport/Classes/Import.php'])) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/newsfeedimport/Classes/Import.php']);
-}
 ?>
