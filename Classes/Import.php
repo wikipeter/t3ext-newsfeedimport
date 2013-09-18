@@ -196,11 +196,11 @@ class Tx_Newsfeedimport_Import {
 		$rec = array(
 			'pid'       => $this->newsPid,
 			'hidden'    => ($this->feedImportRecord['default_hidden'] ? '1' : '0'),
-			'title'     => trim(htmlspecialchars_decode($feedItem->get_title())),
-			'short'     => trim(htmlspecialchars_decode($feedItem->get_description())),
-			//'bodytext'	=> trim(htmlspecialchars_decode($feedItem->get_content())),
+			'title'     => trim($this->decodeHtmlCharacters($feedItem->get_title())),
+			'short'     => trim($this->decodeHtmlCharacters($feedItem->get_description())),
+			//'bodytext'	=> trim($this->decodeHtmlCharacters($feedItem->get_content())),
 			'datetime'  => $feedItem->get_date('U'),
-			'author'       => ($feedItem->get_author() ? $feedItem->get_author()->get_name() : ''),
+			'author'       => ($feedItem->get_author() ? $this->decodeHtmlCharacters($feedItem->get_author()->get_name()) : ''),
 			'author_email' => ($feedItem->get_author() ? $feedItem->get_author()->get_email() : ''),
 			'tx_newsfeedimport_guid' => $feedItem->get_id(),
 			'tx_newsfeedimport_feed' => $this->feedImportRecord['uid'],
@@ -763,6 +763,14 @@ class Tx_Newsfeedimport_Import {
 	</data>
 </T3FlexForms>';
 		return $xmlString;
+	}
+
+
+	/**
+	 * wrapper function for decoding HTML characters to unicode characters (as the DB now supports UTF8 by default)
+	 */
+	protected function decodeHtmlCharacters($str) {
+		return html_entity_decode($str, ENT_COMPAT | ENT_HTML5, 'UTF-8');
 	}
 
 }
