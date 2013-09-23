@@ -119,25 +119,30 @@ class Tx_Newsfeedimport_Import {
 			$oldAdmin = $GLOBALS['BE_USER']->user['admin'];
 			$GLOBALS['BE_USER']->user['admin'] = 1;
 
-			// make different queries for tt_news and news
-			if ($this->feedExtension == 0) {
-				// disable all news items in this storage folder
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-					'tt_news',
-					'tx_newsfeedimport_guid != "" AND tx_newsfeedimport_feed = ' . intval($this->feedImportRecord['uid']) . ' AND pid = ' . intval($this->newsPid) . t3lib_BEfunc::deleteClause('tt_news'),
-					array(
-						'hidden' => 1
-					)
-				);
-			} elseif ($this->feedExtension == 2) {
-				// disable all news items in this storage folder
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-					'tx_news_domain_model_news',
-					'tx_newsfeedimport_guid != "" AND tx_newsfeedimport_feed = ' . intval($this->feedImportRecord['uid']) . ' AND pid = ' . intval($this->newsPid) . t3lib_BEfunc::deleteClause('tx_news_domain_model_news'),
-					array(
-						'hidden' => 1
-					)
-				);
+			// @todo: re-enable this feature in the future
+			// this conflicts when "override existing records" = 0
+			// where existing records will be set to "hidden" and never re-activated anymore
+			if ($this->disableExistingNews) {
+				// make different queries for tt_news and news
+				if ($this->feedExtension == 0) {
+					// disable all news items in this storage folder
+					$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+						'tt_news',
+						'tx_newsfeedimport_guid != "" AND tx_newsfeedimport_feed = ' . intval($this->feedImportRecord['uid']) . ' AND pid = ' . intval($this->newsPid) . t3lib_BEfunc::deleteClause('tt_news'),
+						array(
+							'hidden' => 1
+						)
+					);
+				} elseif ($this->feedExtension == 2) {
+					// disable all news items in this storage folder
+					$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+						'tx_news_domain_model_news',
+						'tx_newsfeedimport_guid != "" AND tx_newsfeedimport_feed = ' . intval($this->feedImportRecord['uid']) . ' AND pid = ' . intval($this->newsPid) . t3lib_BEfunc::deleteClause('tx_news_domain_model_news'),
+						array(
+							'hidden' => 1
+						)
+					);
+				}
 			}
 
 			// set a flag that no notificationmail has been sent by now
