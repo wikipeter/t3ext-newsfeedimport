@@ -190,11 +190,18 @@ class Tx_Newsfeedimport_Import {
 	}
 
 	protected function importItem($feedItem) {
-		$dbRecordId = $this->getNewsIdFromFeedItem($feedItem);
-		if (!$dbRecordId) {
+		$dbRecord = $this->getNewsRecordFromFeedItem($feedItem);
+		if (!is_array($dbRecord)) {
 			$isNewRecord = TRUE;
 		} else {
 			$isNewRecord = FALSE;
+			$dbRecordId = $dbRecord['uid'];
+			// check if the record was imported previously,
+			// but is marked as deleted (= manually deleted)
+			// so never import this record again
+			if ($dbRecord['deleted'] == 1) {
+				return 0;
+			}
 		}
 
 		// insert into DB
@@ -407,29 +414,45 @@ class Tx_Newsfeedimport_Import {
 	 */
 	protected function getNewsIdFromFeedItem($feedItem) {
 		$guid = $feedItem->get_id();
-		
-		// fetch SQL record with this GUID
-		// query according to selected extension
-		if ($this->feedExtension == 0) {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				'uid',
-				'tt_news',
-				'pid = ' . $this->newsPid . ' AND tx_newsfeedimport_guid = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($guid, 'tt_news') . t3lib_BEfunc::deleteClause('tt_news')
-			);
-		} elseif ($this->feedExtension == 2) {
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				'uid',
-				'tx_news_domain_model_news',
-				'pid = ' . $this->newsPid . ' AND tx_newsfeedimport_guid = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($guid, 'tx_news_domain_model_news') . t3lib_BEfunc::deleteClause('tx_news_domain_model_news')
-			);
-		}
 
-		if ($guid && $GLOBALS['TYPO3_DB']->sql_num_rows($res) > 0) {
-			$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
+		$row = $this->getNewsRecordFromFeedItem($feedItem);
+
+		if ($guid && is_array($row)) {
 			return $row['uid'];
 		} else {
 			return 0;
 		}
+	}
+
+	/**
+	 * fetch the DB record of the already imported news item
+	 *
+	 * @param SimplePie_Item $feedItem
+	 * @return mixed the DB record or null, if none was found
+	 */
+	protected function getNewsRecordFromFeedItem($feedItem) {
+		$guid = $feedItem->get_id();
+
+		if ($guid) {
+
+			// fetch SQL record with this GUID
+			// query according to selected extension
+			if ($this->feedExtension == 0) {
+				return $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow(
+					'uid',
+					'tt_news',
+					'pid = ' . $this->newsPid . ' AND tx_newsfeedimport_guid = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($guid, 'tt_news')
+				);
+			} elseif ($this->feedExtension == 2) {
+				return $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow(
+					'uid',
+					'tx_news_domain_model_news',
+					'pid = ' . $this->newsPid . ' AND tx_newsfeedimport_guid = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($guid, 'tx_news_domain_model_news')
+				);
+			}
+		}
+
+		return NULL;
 	}
 
 
