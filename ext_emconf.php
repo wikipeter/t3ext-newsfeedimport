@@ -11,8 +11,8 @@
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'RSS2 / Atom Feed Import into tt_news',
-	'description' => 'Imports RSS2 / Atom Feeds into tt_news records.',
+	'title' => 'RSS2 / Atom Feed Import into EXT:tt_news or EXT:news',
+	'description' => 'Imports RSS2 / Atom Feeds into EXT:tt_news or EXT:news records.',
 	'category' => 'be',
 	'shy' => 0,
 	'version' => '0.8.1',
