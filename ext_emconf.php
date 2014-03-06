@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'category' => 'be',
 	'shy' => 0,
 	'version' => '0.8.1',
-	'dependencies' => 'tt_news',
+	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
@@ -36,7 +36,6 @@ $EM_CONF[$_EXTKEY] = array(
 		'depends' => array(
 			'typo3' => '4.3.0-0.0.0',
 			'php' => '5.2.0-0.0.0',
-			'tt_news' => '2.5.1-0.0.0',
 		),
 		'conflicts' => array(
 		),
