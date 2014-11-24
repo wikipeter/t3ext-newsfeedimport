@@ -615,6 +615,17 @@ class Tx_Newsfeedimport_Import {
 		foreach ($images as $imageMetadata) {
 			$imageFile = trim($imageMetadata['href'], '"');
 
+			// get the real file extension
+			if (stripos($imageFile, '.jpg')) {
+				$fileExtension = '.jpg';
+			} elseif (stripos($imageFile, '.jpeg')) {
+				$fileExtension = '.jpeg';
+			} elseif (stripos($imageFile, '.png')) {
+				$fileExtension = '.png';
+			} elseif (stripos($imageFile, '.gif')) {
+				$fileExtension = '.gif';
+			}
+
 				// Only continue if one of following file extensions match
 			// $type = explode('/', strtolower($type));
 			// if ($type[0] == 'image' && ($type[1] == 'gif' || $type[1] == 'jpeg' || $type[1] == 'png')) {
@@ -627,6 +638,13 @@ class Tx_Newsfeedimport_Import {
 				$imageBasename = $directoryName . '_' . $imageBasename;
 				$imageBasename = $fileFunc->cleanFileName($imageBasename);
 			}
+
+			$imageBasename = substr($imageBasename, 0, 200);
+
+			if (substr($imageBasename, 0-strlen($fileExtension)) !== $fileExtension) {
+				$imageBasename .= $fileExtension;
+			}
+
 			$finalFilename = $fileFunc->getUniqueName($imageBasename, $destinationPath);
 
 			// fill the file
