@@ -554,19 +554,23 @@ class Tx_Newsfeedimport_Import {
 
 				foreach ($linkToCrop as $linkPart) {
 					if (strpos($linkPart, '.jpg') !== FALSE || strpos($linkPart, '.png') !== FALSE || strpos($linkPart, '.gif') !== FALSE) {
-						$linkId = $linkPart;
-						if (strpos($linkId, ' ')) {
-							$linkId = explode(' ', $linkId);
-							$linkId = $linkId[0];
+						$linkParts = explode('_', $linkPart);
+						if ($linkParts[1]) {
+							$graphId = 'http://graph.facebook.com/' . $linkParts[1];
+							$jsonContent = t3lib_div::getUrl($graphId);
+							if ($jsonContent) {
+								$jsonContent = json_decode($jsonContent, TRUE);
+								$finalUrl = $jsonContent['images'][0]['source'];
+								$images[]['href'] = $finalUrl;
+							}
 						}
 					}
 				}
 
+				// not needed anymore
 				if (!empty($linkId)) {
 					$finalLinkId = str_replace('_s', '_n', $linkId);
-
 					$finalImageLink = 'http://sphotos-c.ak.fbcdn.net/hphotos-ak-ash3/s720x720/' . $finalLinkId ;
-
 					$images[]['href'] = $finalImageLink;
 				}
 			}
@@ -614,6 +618,18 @@ class Tx_Newsfeedimport_Import {
 
 		foreach ($images as $imageMetadata) {
 			$imageFile = trim($imageMetadata['href'], '"');
+			$imageFile = htmlspecialchars_decode($imageFile);
+
+			// get the real file extension
+			if (stripos($imageFile, '.jpg')) {
+				$fileExtension = '.jpg';
+			} elseif (stripos($imageFile, '.jpeg')) {
+				$fileExtension = '.jpeg';
+			} elseif (stripos($imageFile, '.png')) {
+				$fileExtension = '.png';
+			} elseif (stripos($imageFile, '.gif')) {
+				$fileExtension = '.gif';
+			}
 
 				// Only continue if one of following file extensions match
 			// $type = explode('/', strtolower($type));
@@ -627,6 +643,13 @@ class Tx_Newsfeedimport_Import {
 				$imageBasename = $directoryName . '_' . $imageBasename;
 				$imageBasename = $fileFunc->cleanFileName($imageBasename);
 			}
+
+			$imageBasename = substr($imageBasename, 0, 200);
+
+			if (substr($imageBasename, 0-strlen($fileExtension)) !== $fileExtension) {
+				$imageBasename .= $fileExtension;
+			}
+
 			$finalFilename = $fileFunc->getUniqueName($imageBasename, $destinationPath);
 
 			// fill the file
