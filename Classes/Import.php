@@ -209,7 +209,7 @@ class Tx_Newsfeedimport_Import {
 			'pid'       => $this->newsPid,
 			'hidden'    => ($this->feedImportRecord['default_hidden'] ? '1' : '0'),
 			'title'     => $this->decodeHtmlCharacters($feedItem->get_title()),
-			'short'     => $this->decodeHtmlCharacters($feedItem->get_description()),
+			'teaser'     => $this->decodeHtmlCharacters($feedItem->get_description()),
 			//'bodytext'	=> $this->decodeHtmlCharacters($feedItem->get_content()),
 			'datetime'  => $feedItem->get_date('U'),
 			'author'       => ($feedItem->get_author() ? $this->decodeHtmlCharacters($feedItem->get_author()->get_name()) : ''),
