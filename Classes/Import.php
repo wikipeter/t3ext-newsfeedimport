@@ -23,7 +23,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 /**
- * workflow: 
+ * workflow:
  * 0. find the newsfeedimport records, and get the URLs out of it (outside this class)
  * 1. parse the feed of each import item, and make db records (incl. Metadata) out of it
  *   2. (optional) resolve categories each record
@@ -42,7 +42,7 @@ class Tx_Newsfeedimport_Import {
 	 * containing the URL, mapping, configuration stuff etc
 	 */
 	protected $feedImportRecord = NULL;
-	
+
 	/**
 	 * the SimplePie object
 	 */
@@ -98,7 +98,7 @@ class Tx_Newsfeedimport_Import {
 		// get all existing categories
 		$this->loadAllExistingCategories();
 	}
-	
+
 	/**
 	 * does the magic, called from outside
 	 */
@@ -156,7 +156,7 @@ class Tx_Newsfeedimport_Import {
 						$this->feedCategories[$cat->get_label()] = $cat->get_label();
 					}
 				}
-				
+
 					// filter out which items need to be updated (or which are there already)
 				if (!$this->isItemAlreadyImported($feedItem) || $this->feedImportRecord['overrideedited']) {
 					// If you quote this in, the cronjob will not run through: echo 'Importing ' . $feedItem->get_title() . CRLF;
@@ -276,14 +276,14 @@ class Tx_Newsfeedimport_Import {
 
 			// use TCEmain to store the record
 		if (!$isNewRecord) {
-		
+
 			unset($rec['pid']);
 			// unset($rec['hidden']);
 			$rec['hidden'] = '0';
 			unset($rec['type']);
 			unset($rec['tx_newsfeedimport_guid']);
 			unset($rec['tx_newsfeedimport_feed']);
-		
+
 				// update the record
 			$data = array();
 
@@ -299,7 +299,7 @@ class Tx_Newsfeedimport_Import {
 			$tce->dontProcessTransformations = 1;
 			$tce->start($data, array());
 			$tce->process_datamap();
-		
+
 		} else {
 
 				// add a new record
@@ -335,7 +335,7 @@ class Tx_Newsfeedimport_Import {
 			$tce->dontProcessTransformations = 1;
 			$tce->start($data, array());
 			$tce->process_datamap();
-	
+
 				// get record ID
 			$newIds = $tce->substNEWwithIDs;
 			$dbRecordId = $newIds['NEW' . $tcemainId];
@@ -369,7 +369,7 @@ class Tx_Newsfeedimport_Import {
 					$addCategoryRelationship = FALSE;
 				}
 			}
-			
+
 			if ($addCategoryRelationship) {
 				$insertData = array(
 					'uid_local' => $dbRecordId,
@@ -408,7 +408,7 @@ class Tx_Newsfeedimport_Import {
 
 	/**
 	 * fetch the ID of a record of the already imported record
-	 * 
+	 *
 	 * @param SimplePie_Item $feedItem
 	 * @return integer	the uid of the tt_news item
 	 */
@@ -457,7 +457,7 @@ class Tx_Newsfeedimport_Import {
 
 
 	/**
-	 * takes the category information 
+	 * takes the category information
 	 */
 	protected function resolveCategoryRecords($categories) {
 		$categoryIds = array();
@@ -477,7 +477,7 @@ class Tx_Newsfeedimport_Import {
 				if (isset($this->existingCategories[$name])) {
 					$categoryIds[] = $this->existingCategories[$name];
 				} else {
-						// add category to DB 
+						// add category to DB
 					$insertData = array(
 						'pid' => $this->categoryPid,
 						// TODO: do we want a parent_category set by default?
@@ -491,7 +491,7 @@ class Tx_Newsfeedimport_Import {
 //					}
 
 					$categoryId = $GLOBALS['TYPO3_DB']->sql_insert_id();
-				
+
 					$this->existingCategories[$name] = $categoryId;
 					$categoryIds[] = $categoryId;
 				}
@@ -499,7 +499,7 @@ class Tx_Newsfeedimport_Import {
 		}
 		return $categoryIds;
 	}
-	
+
 	protected function loadAllExistingCategories() {
 		$categories = array();
 
@@ -708,7 +708,7 @@ class Tx_Newsfeedimport_Import {
 	 * update the DB record
 	 *
 	 * @param	string	$feedItem	the SimplePie API class
-	 * @param	integer	$dbRecordId	the ID of the DB record, so 
+	 * @param	integer	$dbRecordId	the ID of the DB record, so
 	 * @return	void
 	 */
 	protected function retrieveAttachment($feedItem, $dbRecordId) {

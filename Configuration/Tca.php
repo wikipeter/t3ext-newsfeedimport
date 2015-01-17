@@ -12,7 +12,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 	'feInterface' => $TCA['tx_newsfeedimport_feeds']['feInterface'],
 	'columns' => array(
 		'hidden' => array(
-			'exclude' => 1,	
+			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
 			'config' => array(
 				'type' => 'check',
@@ -20,7 +20,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			)
 		),
 		'starttime' => array(
-			'exclude' => 1,	
+			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.starttime',
 			'config' => array(
 				'type' => 'input',
@@ -32,7 +32,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			)
 		),
 		'endtime' => array(
-			'exclude' => 1,	
+			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.endtime',
 			'config' => array(
 				'type' => 'input',
@@ -63,8 +63,8 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.title',
 			'config' => array(
-				'type' => 'input',	
-				'size' => '30',	
+				'type' => 'input',
+				'size' => '30',
 				'eval' => 'required',
 			)
 		),
@@ -93,21 +93,21 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.targetpid',
 			'config' => array(
-				'type' => 'group',	
+				'type' => 'group',
 				'internal_type' => 'db',
 				'allowed' => 'pages',
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
 				'wizards' => array(
-					'suggest' => array(    
+					'suggest' => array(
 						'type' => 'suggest',
 					),
 				),
 			)
 		),
 		'overrideedited' => array(
-			'exclude' => 1,	
+			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.overrideedited',
 			'config' => array(
 				'type' => 'check',
@@ -115,7 +115,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			)
 		),
 		'importimages' => array(
-			'exclude' => 1,	
+			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.importimages',
 			'config' => array(
 				'type' => 'check',
@@ -123,7 +123,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			)
 		),
 		'default_hidden' => array(
-			'exclude' => 1,	
+			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_hidden',
 			'config' => array(
 				'type' => 'check',
@@ -205,7 +205,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_author',
 			'config' => array(
-				'type' => 'input',	
+				'type' => 'input',
 				'size' => '28'
 			)
 		),
@@ -213,7 +213,7 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.default_authoremail',
 			'config' => array(
-				'type' => 'input',	
+				'type' => 'input',
 				'size' => '15'
 			)
 		),
@@ -252,8 +252,8 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 		),
 	),
 	'types' => array(
-		'0' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_ttnewstype, default_ttnewscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
-		'2' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_newstype, default_newscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
+		'0' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, targetlanguage, overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_ttnewstype, default_ttnewscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
+		'2' => array('showitem' => 'default_extension, title, startstoptime, url, targetpid, targetlanguage,overrideedited, importimages, --div--;Default Values;defaultvalues, default_hidden, default_newstype, default_newscategories, --div--;LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:notification, emailnotification, notificationreceivers, notificationmailsubject, notificationmailtext'),
 	),
 	'palettes' => array(
 		'startstoptime' => array(
