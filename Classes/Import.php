@@ -169,7 +169,7 @@ class Tx_Newsfeedimport_Import {
 							if ($receiver) {
 
 								$message = t3lib_div::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-								$message->setFrom(array('noreply@b13.de' => 'Breuninger Corporate Website'))
+								$message->setFrom(array('noreply@betacoding.com' => 'Breuninger Corporate Website'))
 									->setTo(array($receiver => $receiver))
 									->setSubject($this->feedImportRecord['notificationmailsubject'])
 									->setBody($this->feedImportRecord['notificationmailtext']);
