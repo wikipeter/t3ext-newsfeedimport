@@ -106,6 +106,19 @@ $TCA['tx_newsfeedimport_feeds'] = array(
 				),
 			)
 		),
+		'targetlanguage' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.targetlanguage',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'sys_language',
+				'foreign_table_where' => 'ORDER BY sys_language.title',
+				'items' => array(
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1),
+					array('LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0)
+				),
+			),
+		),
 		'overrideedited' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:newsfeedimport/Resources/Private/Language/db.xml:feeds.overrideedited',

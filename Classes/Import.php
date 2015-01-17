@@ -210,6 +210,7 @@ class Tx_Newsfeedimport_Import {
 			'hidden'    => ($this->feedImportRecord['default_hidden'] ? '1' : '0'),
 			'title'     => $this->decodeHtmlCharacters($feedItem->get_title()),
 			'teaser'     => $this->decodeHtmlCharacters($feedItem->get_description()),
+			'sys_language_uid' => $this->feedImportRecord['targetlanguage'],
 			//'bodytext'	=> $this->decodeHtmlCharacters($feedItem->get_content()),
 			'datetime'  => $feedItem->get_date('U'),
 			'author'       => ($feedItem->get_author() ? $this->decodeHtmlCharacters($feedItem->get_author()->get_name()) : ''),

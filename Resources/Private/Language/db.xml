@@ -19,6 +19,7 @@
 			<label index="feeds.scheduler_import.description">Imports RSS/Atom Feeds feeds</label>
 			<label index="feeds.scheduler_import.name">RSS/Atom Feed Import</label>
 			<label index="feeds.targetpid">Target folder to store imported records</label>
+			<label index="feeds.targetlanguage">Target language of imported records</label>
 			<label index="feeds.title">Title</label>
 			<label index="feeds.url">Feed URL</label>
 			<label index="scheduler.norecord">No record selected</label>
