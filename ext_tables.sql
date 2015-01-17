@@ -28,6 +28,7 @@ CREATE TABLE tx_newsfeedimport_feeds (
   notificationreceivers tinytext NOT NULL,
   notificationmailsubject tinytext NOT NULL,
   notificationmailtext text NOT NULL
+  targetlanguage int(11) DEFAULT '0' NOT NULL,
 
   PRIMARY KEY (uid),
   KEY parent (pid)
